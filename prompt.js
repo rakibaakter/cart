@@ -30,3 +30,14 @@ const setItemToLocalStorage = (product, quantity) => {
     localStorage.setItem('cart', cartStringified);
     // console.log(cart)
 }
+
+const displayProductFromLocalStorage= () => {
+    const storedCart  = getItemFromLocalStorage();
+    console.log(storedCart)
+    for(const product in storedCart){
+        const quantity = storedCart[product];
+        showItems(product, quantity);
+    }
+}
+
+displayProductFromLocalStorage();
