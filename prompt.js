@@ -3,10 +3,10 @@ const addToList = () => {
    const quantityField = document.getElementById('quantity-field')
    const product = productField.value;
    const quantity = quantityField.value;
-   showItems(product, quantity);
    productField.value = ''
    quantityField.value = '';
-//    console.log(product, quantity);
+   showItems(product, quantity);
+   setItemToLocalStorage(product, quantity)
 }
 
 const showItems = (product, quantity) => {
@@ -15,10 +15,18 @@ const showItems = (product, quantity) => {
     const ul = document.getElementById('items-container');
     ul.appendChild(li);
 }
-// const getItemFromLocalStorage = () =>{
-//     let cart = {};
-
-// }
-// const setItemToLocalStorage = (product, quantity) => {
-
-// }
+const getItemFromLocalStorage = () =>{
+    let cart = {};
+    const getCart = localStorage.getItem('cart');
+    if(getCart){
+        cart = JSON.parse(getCart);
+    }
+    return cart;
+}
+const setItemToLocalStorage = (product, quantity) => {
+    const cart = getItemFromLocalStorage();
+    cart[product] = quantity;
+    const cartStringified = JSON.stringify(cart);
+    localStorage.setItem('cart', cartStringified);
+    // console.log(cart)
+}
